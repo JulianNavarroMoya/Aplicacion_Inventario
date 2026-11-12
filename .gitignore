@@ -37,3 +37,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Configuración local ###
+# Contiene la contraseña de MySQL; usa application.properties.example como plantilla
+src/main/resources/application.properties

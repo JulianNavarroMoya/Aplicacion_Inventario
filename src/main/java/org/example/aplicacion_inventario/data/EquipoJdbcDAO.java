@@ -92,7 +92,7 @@ public class EquipoJdbcDAO implements DAO<Equipo> {
              PreparedStatement pst = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, obj.getNombre());
             pst.setString(2, obj.getCategoria());
-            pst.setBoolean(3, obj.getDisponible());
+            pst.setBoolean(3, Boolean.TRUE.equals(obj.getDisponible()));
             pst.executeUpdate();
 
             try (ResultSet rs = pst.getGeneratedKeys()) {
@@ -122,7 +122,7 @@ public class EquipoJdbcDAO implements DAO<Equipo> {
              PreparedStatement pst = conn.prepareStatement(sql)) {
             pst.setString(1, entity.getNombre());
             pst.setString(2, entity.getCategoria());
-            pst.setBoolean(3, entity.getDisponible());
+            pst.setBoolean(3, Boolean.TRUE.equals(entity.getDisponible()));
             pst.setLong(4, entity.getId());
             pst.executeUpdate();
         } catch (SQLException e) {

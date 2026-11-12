@@ -17,37 +17,76 @@ public class CreateController implements Initializable {
     @FXML private TextField txtName;
     @FXML private ChoiceBox<String> choiceCategory;
     @FXML private CheckBox chkAvailable;
-    @FXML private Spinner<Integer> spinnerId;
 
-    private final EquipoJdbcDAO dao = new EquipoJdbcDAO(DataSourceFactory.getDataSource());
+    private EquipoJdbcDAO dao;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        spinnerId.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, 0, 1));
-
-        choiceCategory.getItems().addAll("Keyboard", "Laptop", "Gamepad", "Monitor", "Computer", "Printer");
-        choiceCategory.getSelectionModel().selectFirst();
+        // Las categorías se definen en el FXML; aquí solo se deja una seleccionada.
+        if (choiceCategory.getSelectionModel().isEmpty()) {
+            choiceCategory.getSelectionModel().selectFirst();
+        }
     }
 
     @FXML
     public void save(ActionEvent actionEvent) {
-        if (txtName.getText().isBlank()) {
-            new Alert(Alert.AlertType.WARNING, "El nombre no puede estar vacío").showAndWait();
+        String nombre = txtName.getText() == null ? "" : txtName.getText().trim();
+        if (nombre.isBlank()) {
+            showError(Alert.AlertType.WARNING, "Datos incompletos", "El nombre no puede estar vacío.");
             return;
         }
 
-        Equipo equipment = new Equipo();
-        equipment.setNombre(txtName.getText());
-        equipment.setCategoria(choiceCategory.getValue());
-        equipment.setDisponible(chkAvailable.isSelected());
+        String categoria = choiceCategory.getValue();
+        if (categoria == null) {
+            showError(Alert.AlertType.WARNING, "Datos incompletos", "Debes seleccionar una categoría.");
+            return;
+        }
 
-        dao.save(equipment);
+        try {
+            Equipo equipment = new Equipo();
+            equipment.setNombre(nombre);
+            equipment.setCategoria(categoria);
+            equipment.setDisponible(chkAvailable.isSelected());
 
-        SceneManager.goTo("min");
+            dao().save(equipment);
+
+            SceneManager.goTo("min");
+        } catch (RuntimeException e) {
+            showError(Alert.AlertType.ERROR, "No se ha podido guardar el equipo",
+                    SceneManager.rootMessage(e));
+        }
     }
 
     @FXML
     public void goBack(ActionEvent actionEvent) {
         SceneManager.goTo("min");
+    }
+
+    /**
+     * Devuelve el DAO creándolo de forma perezosa, para que un fallo de conexión
+     * se pueda mostrar como un mensaje y no rompa la carga de la vista.
+     *
+     * @return el DAO de equipos
+     */
+    private EquipoJdbcDAO dao() {
+        if (dao == null) {
+            dao = new EquipoJdbcDAO(DataSourceFactory.getDataSource());
+        }
+        return dao;
+    }
+
+    /**
+     * Muestra un diálogo de aviso o error.
+     *
+     * @param type    tipo de diálogo
+     * @param header  texto de cabecera
+     * @param content texto del mensaje
+     */
+    private void showError(Alert.AlertType type, String header, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle("Inventario");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
