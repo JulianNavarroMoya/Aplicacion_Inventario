@@ -2,6 +2,7 @@ package org.example.aplicacion_inventario.controllers;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -11,7 +12,6 @@ import org.example.aplicacion_inventario.data.EquipoJdbcDAO;
 import org.example.aplicacion_inventario.models.Equipo;
 import org.example.aplicacion_inventario.sceneManager.SceneManager;
 
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 

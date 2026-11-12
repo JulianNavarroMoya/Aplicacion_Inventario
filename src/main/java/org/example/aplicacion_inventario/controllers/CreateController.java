@@ -43,11 +43,11 @@ public class CreateController implements Initializable {
 
         dao.save(equipment);
 
-        SceneManager.goTo("main");
+        SceneManager.goTo("min");
     }
 
     @FXML
     public void goBack(ActionEvent actionEvent) {
-        SceneManager.goTo("main");
+        SceneManager.goTo("min");
     }
 }

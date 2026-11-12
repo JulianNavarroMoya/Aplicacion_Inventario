@@ -7,6 +7,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -19,14 +20,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="503.0" prefWidth="419.0" spacing="25.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.aplicacion_inventario.HelloController">
+<VBox alignment="CENTER" prefHeight="503.0" prefWidth="419.0" spacing="25.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.aplicacion_inventario.controllers.CreateController">
     <padding>
         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
     </padding>
     <children>
         <ImageView fitHeight="92.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../../../../../../../Downloads/ordenador-personal.png" />
+                <Image url="@imagenes/ordenador-personal.png" />
             </image>
         </ImageView>
         <!-- Título centrado -->
@@ -47,15 +48,15 @@
 
             <children>
                 <Label text="ID" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <TextField fx:id="txtId" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Spinner fx:id="spinnerId" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
                 <Label text="NOMBRE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <TextField fx:id="txtNombre" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="txtName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                 <Label text="CATEGORIA" GridPane.columnIndex="0" GridPane.rowIndex="2" />
 
                 <!-- ChoiceBox con opciones de selección y valor por defecto -->
-                <ChoiceBox fx:id="cbCategoria" maxWidth="1.7976931348623157E308" prefWidth="150.0" value="Ordenadores" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <ChoiceBox fx:id="choiceCategory" maxWidth="1.7976931348623157E308" prefWidth="150.0" value="Ordenadores" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="Ordenadores" />
@@ -67,7 +68,7 @@
                 </ChoiceBox>
 
                 <Label text="DISPONIBLE" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                <CheckBox fx:id="chkDisponible" mnemonicParsing="false" onAction="#onActionIdDisponible" prefHeight="17.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <CheckBox fx:id="chkAvailable" mnemonicParsing="false" prefHeight="17.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>
             <rowConstraints>
                 <RowConstraints />
@@ -90,7 +91,7 @@
         <!-- Botones centrados con espaciado simétrico -->
         <HBox alignment="CENTER" spacing="15.0">
             <children>
-                <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#Guardar" prefHeight="45.0" prefWidth="97.0" text="GUARDAR">
+                <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#save" prefHeight="45.0" prefWidth="97.0" text="GUARDAR">
                     <graphic>
                         <ImageView fitHeight="150.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -99,7 +100,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#Volver" prefHeight="25.0" prefWidth="95.0" text="SALIR">
+                <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="95.0" text="SALIR">
                     <graphic>
                         <ImageView fitHeight="150.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                             <image>

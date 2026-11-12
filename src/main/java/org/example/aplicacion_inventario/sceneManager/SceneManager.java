@@ -15,7 +15,7 @@ public class SceneManager {
 
     public static void goTo(String view) {
         try {
-            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/cesur/dam/inventarioappg1/views/" + view + "-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/org/example/aplicacion_inventario/" + view + "-view.fxml"));
             stage.setScene(new Scene(loader.load()));
         } catch (IOException e) {
             throw new RuntimeException("No se pudo cargar la vista: " + view, e);
